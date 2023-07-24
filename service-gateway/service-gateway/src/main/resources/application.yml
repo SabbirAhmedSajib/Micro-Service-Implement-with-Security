@@ -1,0 +1,28 @@
+spring:
+ cloud:
+   gateway:
+     routes:
+       - id: casa-service
+         uri: lb://CASA-SERVICE
+         predicates:
+           - Path=/test/**
+         filters:
+               - AuthenticationFilter
+
+       - id: teller-service
+         uri: lb://TELLER-SERVICE
+         predicates:
+           - Path=/test1/**
+         filters:
+           - AuthenticationFilter
+
+       - id: authentication-service
+         uri: lb://AUTHENTICATION-SERVICE
+         predicates:
+           - Path=/auth/**
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://localhost:8761/eureka/
